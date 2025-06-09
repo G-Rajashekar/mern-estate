@@ -8,6 +8,9 @@ export default function ListingItem({ listing }) {
   const { addToWishlist } = useWishlist();
   const [isSetWishList, setWishList] = useState(false);
   const navigate = useNavigate();
+  listing.discountPrice = Number(listing.discountPrice) *20
+   listing.regularPrice = Number(listing.regularPrice) *20
+
 
   const handleWishList = () => {
     addToWishlist(listing);
@@ -46,10 +49,10 @@ export default function ListingItem({ listing }) {
           </div>
           <p className="text-gray-600 text-sm mt-2 truncate">{listing.description}</p>
           <p className="text-lg font-bold text-blue-500 mt-2">
-            $
+            Rs:
             {listing.offer
-              ? listing.discountPrice.toLocaleString('en-US')
-              : listing.regularPrice.toLocaleString('en-US')}
+              ? listing.discountPrice.toLocaleString('en-IN')
+              : listing.regularPrice.toLocaleString('en-IN')}
             {listing.type === 'rent' && '/month'}
           </p>
           <div className="flex space-x-4 text-gray-600 text-sm mt-2">
