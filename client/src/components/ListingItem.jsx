@@ -8,9 +8,6 @@ export default function ListingItem({ listing }) {
   const { addToWishlist } = useWishlist();
   const [isSetWishList, setWishList] = useState(false);
   const navigate = useNavigate();
-  listing.discountPrice = Number(listing.discountPrice) *20
-   listing.regularPrice = Number(listing.regularPrice) *20
-
 
   const handleWishList = () => {
     addToWishlist(listing);
@@ -21,8 +18,9 @@ export default function ListingItem({ listing }) {
     navigate('/appointment');
   };
 
-  listing.discountPrice=Number(listing.discountPrice)*20
-  listing.regularPrice=Number(listing.regularPrice)*20
+  const formatINR = (amount) => {
+    return `₹${Number(amount).toLocaleString('en-IN')}`;
+  };
 
   return (
     <div className="relative bg-white shadow-md rounded-lg overflow-hidden p-4">
@@ -52,11 +50,10 @@ export default function ListingItem({ listing }) {
           </div>
           <p className="text-gray-600 text-sm mt-2 truncate">{listing.description}</p>
           <p className="text-lg font-bold text-blue-500 mt-2">
-            Rs:
             {listing.offer
-              ? listing.discountPrice.toLocaleString('en-IN')
-              : listing.regularPrice.toLocaleString('en-IN')}
-            {listing.type === 'rent' && '/month'}
+              ? formatINR(listing.discountPrice)
+              : formatINR(listing.regularPrice)}
+            {listing.type === 'rent' && ' / month'}
           </p>
           <div className="flex space-x-4 text-gray-600 text-sm mt-2">
             <p>{listing.bedrooms > 1 ? `${listing.bedrooms} beds` : `${listing.bedrooms} bed`}</p>
