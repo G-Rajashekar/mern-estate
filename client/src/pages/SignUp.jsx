@@ -23,6 +23,12 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+
+        if (formData.password!==formData.confirmPassword){
+            setError("passwords are not matching")
+            setLoading(false)
+            return;
+        }
         try {
             const apiUrl = "/api/auth/signup";
             const options = {
@@ -77,7 +83,7 @@ export default function SignUp() {
                      <input 
                         type="password" 
                         placeholder="Confirm Password" 
-                        id="cpassword" 
+                        id="confirmPassword" 
                         onChange={handleChange} 
                         className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
