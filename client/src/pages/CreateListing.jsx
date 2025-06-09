@@ -8,7 +8,7 @@ export default function CreateListing() {
     name: "",
     description: "",
     address: "",
-    type: "sale", // Default selection
+    type: "sale",
     bedrooms: 1,
     bathrooms: 1,
     regularPrice: 0,
@@ -34,18 +34,17 @@ export default function CreateListing() {
   const onHandleChanges = (e) => {
     const { id, value, checked, type, name } = e.target;
     let newValue = type === "checkbox" ? checked : value;
-  
-    // Convert number inputs to actual numbers
+
     if (["regularPrice", "discountPrice", "bedrooms", "bathrooms"].includes(id)) {
-      newValue = Number(value); // Convert to number
+      newValue = Number(value);
     }
-  
+
     setFormData({
       ...formData,
       [name || id]: newValue,
     });
   };
-  
+
   const onSubmitForm = async (e) => {
     e.preventDefault();
 
@@ -58,7 +57,7 @@ export default function CreateListing() {
     setError("");
 
     try {
-      console.log("Sending form data:", formData); // Debugging: Check if type exists
+      console.log("Sending form data:", formData);
 
       const res = await fetch("/api/listing/create", {
         method: "POST",
@@ -69,11 +68,9 @@ export default function CreateListing() {
       const data = await res.json();
       setLoading(false);
       if (data.success === false) {
-        setLoading(false);
         setError(data.message);
         return;
       }
-      setLoading(false);
       navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
@@ -86,9 +83,33 @@ export default function CreateListing() {
       <h1 className="text-2xl font-bold mb-4">Create a Listing</h1>
 
       <form onSubmit={onSubmitForm} className="space-y-4">
-        <input type="text" id="name" placeholder="Name" required onChange={onHandleChanges} value={formData.name} className="w-full p-2 border rounded" />
-        <input type="text" id="description" placeholder="Description" required onChange={onHandleChanges} value={formData.description} className="w-full p-2 border rounded" />
-        <input type="text" id="address" placeholder="Address" required onChange={onHandleChanges} value={formData.address} className="w-full p-2 border rounded" />
+        <input
+          type="text"
+          id="name"
+          placeholder="Name"
+          required
+          onChange={onHandleChanges}
+          value={formData.name}
+          className="w-full p-2 border rounded"
+        />
+        <input
+          type="text"
+          id="description"
+          placeholder="Description"
+          required
+          onChange={onHandleChanges}
+          value={formData.description}
+          className="w-full p-2 border rounded"
+        />
+        <input
+          type="text"
+          id="address"
+          placeholder="Address"
+          required
+          onChange={onHandleChanges}
+          value={formData.address}
+          className="w-full p-2 border rounded"
+        />
         <input
           type="text"
           id="locationLink"
@@ -98,7 +119,6 @@ export default function CreateListing() {
           className="w-full p-2 border rounded"
         />
 
-        
         <div className="flex gap-4">
           <label className="flex items-center gap-2">
             <input type="radio" name="type" value="sale" onChange={onHandleChanges} checked={formData.type === "sale"} />
@@ -112,20 +132,46 @@ export default function CreateListing() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <input type="number" id="bedrooms" onChange={onHandleChanges} value={formData.bedrooms} className="w-full p-2 border rounded" />
+            <input
+              type="number"
+              id="bedrooms"
+              onChange={onHandleChanges}
+              value={formData.bedrooms}
+              className="w-full p-2 border rounded"
+            />
             <span>Beds</span>
           </div>
           <div>
-            <input type="number" id="bathrooms" onChange={onHandleChanges} value={formData.bathrooms} className="w-full p-2 border rounded" />
+            <input
+              type="number"
+              id="bathrooms"
+              onChange={onHandleChanges}
+              value={formData.bathrooms}
+              className="w-full p-2 border rounded"
+            />
             <span>Baths</span>
           </div>
           <div>
-            <input type="number" id="regularPrice" onChange={onHandleChanges} value={formData.regularPrice} className="w-full p-2 border rounded" />
-            <span>Regular price</span>
+            <input
+              type="number"
+              id="regularPrice"
+              onChange={onHandleChanges}
+              value={formData.regularPrice}
+              placeholder="Regular price in ₹"
+              className="w-full p-2 border rounded"
+            />
+            <span>Regular Price (₹)</span>
           </div>
           <div>
-            <input type="number" id="discountPrice" onChange={onHandleChanges} value={formData.discountPrice} className="w-full p-2 border rounded" />
-            <span>Discount price</span>
+            <input
+              type="number"
+              id="discountPrice"
+              onChange={onHandleChanges}
+              value={formData.discountPrice}
+              placeholder="Discount price in ₹"
+              className="w-full p-2 border rounded"
+            />
+            <span>Discount Price (₹)</span>
           </div>
         </div>
 
@@ -139,29 +185,32 @@ export default function CreateListing() {
         </div>
 
         <div>
-  <p>Enter Image URLs (Max 3):</p>
-  {[0, 1, 2].map((index) => (
-    <input
-      key={index}
-      type="text"
-      placeholder={`Image URL ${index + 1}`}
-      value={formData.imageUrls[index] || ""}
-      onChange={(e) => {
-        const newImageUrls = [...formData.imageUrls];
-        newImageUrls[index] = e.target.value;
-        setFormData({ ...formData, imageUrls: newImageUrls });
-      }}
-      className="w-full p-2 border rounded my-2"
-    />
-  ))}
-</div>
-
+          <p>Enter Image URLs (Max 3):</p>
+          {[0, 1, 2].map((index) => (
+            <input
+              key={index}
+              type="text"
+              placeholder={`Image URL ${index + 1}`}
+              value={formData.imageUrls[index] || ""}
+              onChange={(e) => {
+                const newImageUrls = [...formData.imageUrls];
+                newImageUrls[index] = e.target.value;
+                setFormData({ ...formData, imageUrls: newImageUrls });
+              }}
+              className="w-full p-2 border rounded my-2"
+            />
+          ))}
+        </div>
 
         <div className="flex flex-wrap gap-4">
           {formData.imageUrls.map((url, index) => (
             <div key={url} className="relative w-20 h-20">
               <img src={url} alt="listing" className="w-full h-full object-cover rounded" />
-              <button onClick={() => onHandleRemoveImage(index)} type="button" className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded">
+              <button
+                onClick={() => onHandleRemoveImage(index)}
+                type="button"
+                className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded"
+              >
                 X
               </button>
             </div>
