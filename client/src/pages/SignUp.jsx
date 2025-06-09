@@ -7,6 +7,7 @@ export default function SignUp() {
         username: "",
         email: "",
         password: "",
+        confirmPassword:""
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -70,6 +71,13 @@ export default function SignUp() {
                         type="password" 
                         placeholder="Password" 
                         id="password" 
+                        onChange={handleChange} 
+                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                     <input 
+                        type="password" 
+                        placeholder="Confirm Password" 
+                        id="cpassword" 
                         onChange={handleChange} 
                         className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />

@@ -117,7 +117,7 @@ export default function Listing() {
           </span>
           {listing.offer && (
             <span className="px-3 py-1 bg-yellow-400 text-white rounded-md">
-              {formatINR(listing.regularPrice - listing.discountPrice)} OFF
+              {formatINR(listing.discountPrice)} OFF
             </span>
           )}
         </div>
