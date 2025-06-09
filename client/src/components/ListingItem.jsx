@@ -21,6 +21,9 @@ export default function ListingItem({ listing }) {
     navigate('/appointment');
   };
 
+  listing.discountPrice=Number(listing.discountPrice)*20
+  listing.regularPrice=Number(listing.regularPrice)*20
+
   return (
     <div className="relative bg-white shadow-md rounded-lg overflow-hidden p-4">
       {/* Wishlist Icon */}
