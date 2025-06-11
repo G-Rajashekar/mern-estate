@@ -40,8 +40,14 @@ export default function SignIn() {
                 dispatch(signInFailure(data.message));
                 return;
             }
-            dispatch(signInSuccess(data));
-            navigate("/");
+           dispatch(signInSuccess(data));
+
+           if (data.role === "admin") {
+                   navigate("/appointments");
+            } else {
+                   navigate("/");
+            }
+
         } catch (error) {
             dispatch(signInFailure(error.message));
         }
@@ -83,3 +89,4 @@ export default function SignIn() {
         </div>
     );
 }
+

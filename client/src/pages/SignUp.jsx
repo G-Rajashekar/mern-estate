@@ -9,6 +9,7 @@ export default function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
+    role: "",   // 🔥 added role field here
   });
 
   const [passwordValidity, setPasswordValidity] = useState({
@@ -58,6 +59,12 @@ export default function SignUp() {
       return;
     }
 
+    if (!formData.role) {
+      setError("Please select a role");
+      setLoading(false);
+      return;
+    }
+
     try {
       const apiUrl = "/api/auth/signup";
       const options = {
@@ -88,6 +95,7 @@ export default function SignUp() {
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
+
           <input
             type="text"
             placeholder="Username"
@@ -105,7 +113,19 @@ export default function SignUp() {
             required
           />
 
-          {/* Password Field with eye icon */}
+          {/* 🔥 Role dropdown */}
+          <select
+            id="role"
+            onChange={handleChange}
+            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          >
+            <option value="">Select Role</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          {/* Password Field */}
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -127,7 +147,7 @@ export default function SignUp() {
             </div>
           </div>
 
-          {/* Password strength checklist */}
+          {/* Password Strength */}
           <div className="space-y-1 text-sm mt-2">
             <p
               className={`flex items-center ${
@@ -169,7 +189,7 @@ export default function SignUp() {
             </p>
           </div>
 
-          {/* Confirm Password Field with eye icon */}
+          {/* Confirm Password */}
           <div className="relative">
             <input
               type={showCPassword ? "text" : "password"}
@@ -193,7 +213,8 @@ export default function SignUp() {
 
           <button
             disabled={
-              loading || Object.values(passwordValidity).includes(false)
+              loading ||
+              Object.values(passwordValidity).includes(false)
             }
             className="w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50"
           >

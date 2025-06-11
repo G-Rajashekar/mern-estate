@@ -32,7 +32,7 @@ export default function WishListItem ({ listing }) {
         className="p-2 rounded-full bg-red-500 hover:bg-red-600 transition"
       >
         <FaTrash className="text-white text-md" />
-      </button>s
+      </button>
     </div>
   )
 }
