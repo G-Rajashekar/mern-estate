@@ -92,6 +92,7 @@ export default function Appointment({ listingId }) {
             value={formData.date}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
+            min={new Date().toISOString().split("T")[0]}   // ✅ only today & future
             required
           />
 
@@ -116,13 +117,14 @@ export default function Appointment({ listingId }) {
             className="w-full p-2 border border-gray-300 rounded"
             required
           />
-            <textarea
+          <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
             placeholder="Message"
             className="w-full p-2 border border-gray-300 rounded"
             rows="4"
+            required
           ></textarea>
           <div className="flex justify-center mt-4">
             <button
