@@ -9,9 +9,33 @@ const listingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    address: {
+    propertyNumber: {
         type: String,
         required: true
+    },
+    landmark: {
+        type: String,
+        required: false
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    district: {
+        type: String,
+        required: false
+    },
+    state: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: false
     },
     regularPrice: {
         type: Number,
